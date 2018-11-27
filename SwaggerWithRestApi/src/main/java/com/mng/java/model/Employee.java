@@ -1,0 +1,16 @@
+package com.mng.java.model;
+
+public class Employee {
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		System.out.println("set Name executed");
+		if (name == null)
+			throw new IllegalArgumentException("Employee Name can't be null");
+		this.name = name;
+	}
+}

@@ -14,11 +14,11 @@ import com.mng.java.model.Product;
 @Repository
 public class ProductServiceImpl implements ProductService {
 	
-	Map<Integer,Product> products = null;
+	Map<Integer,Product> products = new HashMap<>();
 	
 	@PostConstruct
 	public void generateProducts() {
-		products = new HashMap<>();
+		
 		
 		/*Product p1 = new Product();
 		p1.setId(101);
@@ -83,8 +83,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Map<Integer,Product> listAllProducts() {
-		return products;
+	public List<Product> listAllProducts() {
+		
+		List<Product> list = new ArrayList<Product>();
+		 // using values() for iteration over keys 
+        for (Product obj : products.values()) {
+        	list.add(obj);
+        }
+		
+		return list;
 	}
 
 	@Override

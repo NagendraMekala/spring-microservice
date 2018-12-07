@@ -15,9 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,7 +62,7 @@ public class ProductControllerTest {
 	@Test
 	public void list() throws Exception {
 
-		Map<Integer, Product> products = new HashMap<Integer, Product>();
+		List<Product> productList  = new ArrayList<>();
 
 		Product p1 = new Product();
 			p1.setId(001);
@@ -74,8 +72,9 @@ public class ProductControllerTest {
 			p1.setPrice(50000);
 			p1.setVersion(5);
 			
-		products.put(001, p1);
-		when(productService.listAllProducts()).thenReturn(products);
+			productList.add(p1);
+			
+		when(productService.listAllProducts()).thenReturn(productList);
 
 		MvcResult mvcResults = mockMvc
 				.perform(get("http://localhost:8080/product/list").accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -89,7 +88,12 @@ public class ProductControllerTest {
 
 		mockMvc.perform(get("http://localhost:8080/product/list")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-				.andExpect(jsonPath("$.*", hasSize(1))).andExpect(jsonPath("1", is(notNullValue())));
+				.andExpect(jsonPath("$", hasSize(1)))
+				.andExpect(jsonPath("$[0].id", is(001)))
+				.andExpect(jsonPath("$[0].productId", is("mock laptop")))
+				.andExpect(jsonPath("$[0].description", is("mock product configuration info")))
+				.andExpect(jsonPath("$[0].imageUrl", is("mock://localhost:8080/delImage")))
+				.andExpect(jsonPath("$[0].price", is(50000.0))).andExpect(jsonPath("$[0].version", is(5)));
 	}
 	
 	@Test

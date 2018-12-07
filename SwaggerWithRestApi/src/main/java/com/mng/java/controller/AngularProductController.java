@@ -1,6 +1,7 @@
 package com.mng.java.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,11 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/product")
-@Api(value="online store", description="Operations pertaining to products in Online Store")
+@RequestMapping("/product-app")
+@Api(value="Angular online store", description="angular Operations pertaining to products in Online Store")
 @CrossOrigin
-public class ProductController {
-
+public class AngularProductController {
+	
 	@Autowired
 	private ProductService productService;
 
@@ -58,7 +59,6 @@ public class ProductController {
 		System.out.println("productService.listAllProducts() result: " + productList);
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
-
 
 	//@RequestMapping(value = "/show/{id}", method= RequestMethod.GET)
 	@ApiOperation(value = "Search a product with an ID",response = Product.class)
@@ -127,8 +127,8 @@ public class ProductController {
 
 	}
 	
-	@GetMapping(value="/getAll",produces= {"application/json"} )
+/*	@GetMapping(value="/getAll",produces= {"application/json"} )
 	public List<Product> getProductList(){
 		return productService.getProductList();
-	}
+	}*/
 }

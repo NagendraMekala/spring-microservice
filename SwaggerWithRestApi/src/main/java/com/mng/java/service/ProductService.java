@@ -6,7 +6,7 @@ import java.util.Map;
 import com.mng.java.model.Product;
 
 public interface ProductService {
-	Map<Integer,Product> listAllProducts();
+	List<Product> listAllProducts();
 	Product getProductById(Integer id);
 	void saveProduct(Integer id,Product product);
 	void deleteProduct(Integer id);
